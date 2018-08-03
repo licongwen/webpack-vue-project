@@ -80,7 +80,7 @@ module.exports={
 ### 开发环境
 开发环境主要配置webpack-dev-server
 ```js
-//webpack.base.conf.js
+//webpack.dev.conf.js
 const baseConf = require('./webpack.base.conf');
 const merge = require('webpack-merge');
 const path = require('path');
