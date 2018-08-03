@@ -77,6 +77,8 @@ module.exports={
 
 因为开发环境和生产环境有共同的配置，所以我们可以使用webpack-merge去合并(npm install webpack-merge --save-dev);
 
+其实一旦开启了 mode:'production'，会自动开启代码压缩、scope hoist 等插件，以及自动传递环境变量给 lib 包，所以已经不需要 plugins 这个配置项了。同理，开启了 mode:'development' 会自动开启 sourceMap 等开发插件，我们只要关心更简单的配置，这就是 4.0 零配置的重要改变。
+
 ### 开发环境
 开发环境主要配置webpack-dev-server
 ```js
