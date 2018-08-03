@@ -1,9 +1,3 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-
-Vue.use(Router);
-
-import FirstPage from '../components/index.vue';
 
 export default{
     routes:[
@@ -13,7 +7,11 @@ export default{
         },
         {
             path:'/firstpage',
-            component:FirstPage
+            component:resolved=>require(['../components/index.vue'],resolved)
+        },
+        {
+            path:'/imagepage',
+            component:resolved=>require(['../components/image.vue'],resolved)
         }
     ]
 }

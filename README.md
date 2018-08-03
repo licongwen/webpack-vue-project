@@ -75,7 +75,55 @@ module.exports={
 我们在使用vue-cli生成的项目中，可以看到webpack.base.config.js，webpack.dev.config.js和webpack.prod.config.js，这三个文件分别对应的是开发环境和生成环境共同的配置，开发环境的配置，生产环境的配置。需要我们在package.json命令行中指定为我们需要用哪个配置文件。
 ![指定使用哪个配置文件](img/peizhi.jpg)
 
+因为开发环境和生产环境有共同的配置，所以我们可以使用webpack-merge去合并(npm install webpack-merge --save-dev);
 
+### 开发环境
+开发环境主要配置webpack-dev-server
+```js
+//webpack.base.conf.js
+const baseConf = require('./webpack.base.conf');
+const merge = require('webpack-merge');
+const path = require('path');
+const webpack = require('webpack');
+const dev = {
+    devServer:{
+        contentBase:path.resolve(__dirname,'./dist'),
+        port:8070,
+        host: 'localhost',//设置为localhost时只能在本机访问。可改为0.0.0.0
+        overlay: true,
+        compress: true,
+        open:true,
+        hot: true,
+        inline: true,
+        progress: true,
+    },
+    plugins:[
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(),
+    ],
+    devtool:'inline-source-map',
+    mode:'development'
+}
+
+module.exports = merge(baseConf,dev);
+```
+### 生产环境
+主要为生产环境配置了压缩混淆的插件
+```js
+//webpack.prod.confi.js
+const merge = require('webpack-merge');
+const baseConf = require('./webpack.base.conf');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');//混淆压缩
+const prod={
+    opimization:{
+        minimizer:[
+            new UglifyJsPlugin()
+        ]
+    },
+    mode:'production'
+}
+module.exports = merge(baseConf,prod);
+```
 
 
 
