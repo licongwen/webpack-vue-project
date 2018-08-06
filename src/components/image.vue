@@ -1,5 +1,12 @@
 <template>
     <div>
-        <p>image here;</p>
+        <p class="title">image here;</p>
     </div>
 </template>
+<script>
+import '../assets/index.css'
+export default {
+    
+}
+</script>
+

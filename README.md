@@ -126,6 +126,125 @@ const prod={
 }
 module.exports = merge(baseConf,prod);
 ```
+## Loader
+由于webpack自身只能了解js文件，所以webpack需要loader去处理比如.vue,.css.png格式的文件。loader可以讲所有类型的文件转换为webpack能够处理的有效模块。
+laoder有两个重要的目标：
+1. test属性:用于标识出应该被对应loader进行转换的某个或某些文件；
+2. use属性:用于标识再进行转换时，应该使用什么loader。
+
+比如之前我们用于处理.vue文件的loader：vue-loader
+```javascript
+// ./build/webpack.base.conf.js
+...
+    module:{
+        rules:[
+            {
+                test:/\.vue$/,
+                use:['vue-loader']
+            }
+        ]
+    }
+...
+```
+
+### 处理css文件的loader
+安装两个loader css-loader style-loader，如果需要引入less文件的话，需要安装less-loader
+```js
+npm install css-loader style-loader less less-loader -D
+```
+下面就是配置loader
+```js
+...
+    module:{
+        rules:[
+            {
+                test:/\.vue$/,
+                use:['vue-loader']
+            },
+            {
+                test:/\.css$/,
+                use:['style.loader','css-loader']
+            }
+        ]
+    },
+...
+```
+这种方式打包后的文件是内嵌到html里面的style样式，我们需要将css提取出来形成单独的文件。
+
+![css打包](img/css1.png)
+
+拆分css 我们就需要extract-text-webpack-plugin这个插件，先安装一下这个插件；
+```js
+//@next 表示可支持webpack4版本的插件
+npm install extract-text-webpack-plugin@next -D
+```
+接下来配置插件：
+```js
+// .build/webpack.base.conf.js
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+
+modules:{
+    rules:[
+        //支持css
+        {
+            test:/\.css$/,
+            use:ExtractTextWebpackPlugin.extract({
+                use:['css-loader?minimize'],//这种方式引入css文件就不需要style-loader了
+            })
+            //use:['style-loader','css-loader']//从右往左解析
+        },
+        {
+            test:/\.less$/,
+            use:ExtractTextWebpackPlugin.extract({
+                use:['css-loader?minimize','less-loader'],
+            })
+            //use:['style-loader','css-loader','less-loader'],//
+        }
+    ]
+},
+plugins:[
+    new ExtractTextWebpackPlugin({
+        filename:'css/style.css'，
+        // Setting the following option to `false` will not extract CSS from codesplit chunks.
+        // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
+        // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
+        // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
+        allChunks: true,
+    })
+]
+
+```
+
+然而对于.vue 文件，光是这样设置是不能提取css文件的，还需要如下的设置,在处理.vue的文件中设置提取css,less的插件:
+```js
+// ./build/webpack.base.confi.js
+ module:{
+        rules:[
+            {
+                test:/\.vue$/,
+                use:{
+                    loader:"vue-loader",
+                    options:{
+                        loaders:{
+                            css:ExtractTextWebpackPlugin.extract({
+                                use:'css-loader'
+                            }),
+                            less: ExtractTextWebpackPlugin.extract({
+                                use: ["css-loader", "less-loader"]
+                            })
+                        }
+                    }
+                }
+            },
+        ]
+    },
+```
+运行 npm run dev后，打包后的文件css文件就被单独打包到style.css的文件中去了。
+
+![打包提取后的css文件](img/css2.png)
+
+完整的webpack.base.conf.js在根目录下的build文件夹下。
+
 
 
 
