@@ -245,6 +245,69 @@ plugins:[
 
 完整的webpack.base.conf.js在根目录下的build文件夹下。
 
+### 支持图片和相应的字体
+安装处理相应图片和字体的loader
+```js
+cnpm install url-loader file-loader -D
+```
+配置图片及图标字体对应的 loader。
+
+```js
+// 
+module:{
+    rules:[
+        {
+            test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+            use: [{
+                loader: "url-loader",
+                options: {
+                    limit: 10000,
+                    name: 'images/[name].[hash:7].[ext]'    // 将图片都放入 images 文件夹下，[hash:7]防缓存
+                }
+            }]
+        },
+        {
+            test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+            use: [{
+                loader: "url-loader",
+                options: {
+                    limit: 10000,
+                    name: 'fonts/[name].[hash:7].[ext]'    // 将字体放入 fonts 文件夹下
+                }
+            }]
+        }
+    ]
+}
+
+```
+
+### 转义ES6
+
+我们使用babel插件来讲es6转义成es5，先安装这些插件：
+```js
+npm i babel-core babel-loader babel-preset-env babel-preset-stage-0 -D
+
+```
+最好在根目录下新建一个.babelrc的文件来单独配置.
+```js
+    // ./build/webpack.base.conf.js
+    {
+        test: /\.js$/,
+        use: "babel-loader",
+        include: [path.resolve(__dirname, 'src')]
+    }
+    //Webpack 建议尽量避免 exclude，更倾向于使用 include。
+
+    // .babelrc 
+    {
+        "presets": [
+            ["env", { "modules": false }]
+        ],
+        "comments": false
+    }
+```
+
+
 
 
 

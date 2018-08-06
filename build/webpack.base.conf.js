@@ -6,7 +6,7 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 module.exports = {
     entry:'./src/main.js',
     output:{
-        filename:'bundle.js',
+        filename:'static/js/bundle.js',
         path:path.resolve('dist')
     },
     module:{
@@ -41,6 +41,33 @@ module.exports = {
                     use:['css-loader?minimize','less-loader'],
                 })
                 //use:['style-loader','css-loader','less-loader'],//
+            },
+            //支持图片和相应字体
+            {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                use: [{
+                    loader: "url-loader",
+                    options: {
+                        limit: 10000,
+                        name: 'static/img/[name].[hash:7].[ext]'    // 将图片都放入 img 文件夹下，[hash:7]防缓存
+                    }
+                }]
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                use: [{
+                    loader: "url-loader",
+                    options: {
+                        limit: 10000,
+                        name: 'static/fonts/[name].[hash:7].[ext]'    // 将字体放入 fonts 文件夹下
+                    }
+                }]
+            },
+            //es6转义 babel-loader
+            {
+                test: /\.js$/,
+                use: "babel-loader",
+                include: [path.resolve(__dirname, 'src')]
             }
         ]
     },
@@ -54,7 +81,7 @@ module.exports = {
             }
         }),
         new ExtractTextWebpackPlugin({
-            filename:'css/style.css',
+            filename:'static/css/style.css',
             // Setting the following option to `false` will not extract CSS from codesplit chunks.
             // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
             // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
