@@ -15,7 +15,6 @@ export default {
             let arr = 12;
             const str = 'licongwen';
             console.log(str);
-            cosll.log(arr);
         }
     }
 }
