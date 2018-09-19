@@ -341,6 +341,10 @@ npm i babel-core babel-loader babel-preset-env babel-preset-stage-0 -D
     }
 ```
 
+### 切割代码
+
+当打包出来的代码文件过大时，会影响我们的加载速速，这个时候就需要我们将过大的代码进行分割。
+
 
 
 

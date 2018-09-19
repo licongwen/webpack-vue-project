@@ -9,6 +9,7 @@
 #first{
     .colorRed{
         color: red;
+        font-size: 16px;
     }
 }
 </style>
