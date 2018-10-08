@@ -2,6 +2,7 @@ const merge = require('webpack-merge');
 const baseConf = require('./webpack.base.conf');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require('path')
 
 const prod={
     optimization:{
@@ -49,7 +50,12 @@ const prod={
     },
     plugins: [
         // 打包前先清空
-        new CleanWebpackPlugin('dist')  
+        new CleanWebpackPlugin(
+            ['dist'],
+            {
+                root:path.resolve('./')//需要更改文件夹的根路径
+            }
+        )  
     ],
     mode:'production'
 }
