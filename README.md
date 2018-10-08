@@ -346,7 +346,7 @@ npm i babel-core babel-loader babel-preset-env babel-preset-stage-0 -D
 由于本项目安装了vuex，vuex依赖于promise，所以我们需要 babel-polyfill，先安装插件。
 
 ```sh
-cnpm install babel-polufill -save-d
+cnpm install babel-polyfill -save-d
 ```
 然后需要在入口文件中做一些配置
 ```js
