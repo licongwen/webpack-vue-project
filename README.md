@@ -327,8 +327,10 @@ npm i babel-core babel-loader babel-preset-env babel-preset-stage-0 -D
     // ./build/webpack.base.conf.js
     {
         test: /\.js$/,
-        use: "babel-loader",
-        include: [path.resolve(__dirname, 'src')]
+        use: {
+            loader:"babel-loader"
+        },
+        include: [path.resolve(__dirname,'..', 'src')] //表示只解析src文件夹
     }
     //Webpack 建议尽量避免 exclude，更倾向于使用 include。
 
@@ -341,6 +343,18 @@ npm i babel-core babel-loader babel-preset-env babel-preset-stage-0 -D
     }
 ```
 
+由于本项目安装了vuex，vuex依赖于promise，所以我们需要 babel-polyfill，先安装插件。
+
+```sh
+cnpm install babel-polufill -save-d
+```
+然后需要在入口文件中做一些配置
+```js
+entry: {
+    app: ["babel-polyfill",'./src/main.js']//vuex依赖于promise，所以需要babel-polyfill
+},
+```
+详情可参考 [点击这里](http://www.licongwen.com/2018/02/05/vue%E5%9C%A8Android4-4-2%E7%89%88%E6%9C%AC%E4%B8%8B%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/)
 ### 切割代码
 
 当打包出来的代码文件过大时，会影响我们的加载速速，这个时候就需要我们将过大的代码进行分割。

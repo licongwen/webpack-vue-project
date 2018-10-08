@@ -4,7 +4,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry:'./src/main.js',
+    //entry:'./src/main.js',
+    entry: {
+        app: ["babel-polyfill",'./src/main.js']//vuex依赖于promise，所以需要babel-polyfill
+    },
     output:{
         filename:'static/js/[name].js',
         path:path.resolve('dist')
@@ -66,8 +69,10 @@ module.exports = {
             //es6转义 babel-loader
             {
                 test: /\.js$/,
-                use: "babel-loader",
-                include: [path.resolve(__dirname, 'src')]
+                use: {
+                    loader:"babel-loader"
+                },
+                include: [path.resolve(__dirname,'..', 'src')]
             }
         ]
     },
