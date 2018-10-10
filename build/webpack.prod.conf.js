@@ -1,6 +1,6 @@
 const merge = require('webpack-merge');
 const baseConf = require('./webpack.base.conf');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path')
 
@@ -10,7 +10,7 @@ const prod={
         //     new UglifyJsPlugin()
         // ],//v4.0以下的混淆配置
         runtimeChunk: {
-            name: 'manifest'
+            name: 'runtime'
         },
         minimize:true,//v4.0+的混淆配置
         splitChunks: {
@@ -18,32 +18,26 @@ const prod={
             chunks:'all',
             cacheGroups: {
                 //项目基础包
-                vendor: {
-                   //test: /[\\/]node_modules[\\/]vue/,
-                    //test: /[\\/]node_modules[\\/]vue[\\/]/,
-                    test: '../node_modules\/vue',
-                    name: 'vendor',
-                    chunks: 'all',
-                    enforce: true,
-                    priority: 2,
-                    reuseExistingChunk: true
-                },
-                //单页面需要引入vue-router,vuex,这里单独分割出来
-                spavendor: {
-                    test: '/node_modules\/vue-router/g',
-                    name: 'spavendor',
-                    chunks: 'all',
-                    enforce: true,
+                // vendor: {
+                //    //test: /[\\/]node_modules[\\/]vue/,
+                //     //test: /[\\/]node_modules[\\/]vue[\\/]/,
+                //     test: '../node_modules\/vue',
+                //     name: 'vendor',
+                //     chunks: 'all',
+                //     enforce: true,
+                //     priority: 2,
+                //     reuseExistingChunk: true
+                // },
+                libs: {
+                    name: 'chunk-libs',
+                    test: /[\\/]node_modules[\\/]/,
                     priority: 10,
-                    reuseExistingChunk: true
-                },
-                //剩余的chunks自动分割
-                commons: {
-                    name: 'commons',
-                    minChunks: 5, //引用次数大于5，将被打包进commons包
-                    minSize: 3000, //chunk大小大于这个数值，将被打包进commons包
-                    chunks: 'all',
-                    priority: 1
+                    chunks: 'initial' // 只打包初始时依赖的第三方
+                  },
+                elementUI: {
+                    name: 'chunk-elementUI', // 单独将 elementUI 拆包
+                    priority: 20, // 权重要大于 libs 和 app 不然会被打包进 libs 或者 app
+                    test: /[\\/]node_modules[\\/]element-ui[\\/]/
                 }
             },
         }

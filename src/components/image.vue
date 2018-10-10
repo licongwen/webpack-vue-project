@@ -1,7 +1,9 @@
 <template>
     <div>
         <p class="title">image here;</p>
-        <input v-model="token"/>
+        <el-input class="elinput" v-model="token"/>
+        <el-button type='primary' @click="clickHere">按钮</el-button>
+        <el-button type="success"> 按钮2</el-button>
     </div>
 </template>
 <script>
@@ -30,8 +32,21 @@ export default {
             let arr = 12;
             const str = 'xiaodebaoasdd';
             console.log(str);
+        },
+        clickHere(){
+            alert('clicked!');
         }
     }
 }
 </script>
+<style>
+.elinput{
+    width: 200px;
+    color: red;
+}
+.title{
+    color: red;
+}
+</style>
+
 

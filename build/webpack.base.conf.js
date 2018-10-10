@@ -83,6 +83,7 @@ module.exports = {
             hash:true,
             minify:{
                 removeAttributeQuotes:true,
+                minifyJS: true,
             }
         }),
         new ExtractTextWebpackPlugin({
