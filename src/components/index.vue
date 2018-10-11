@@ -3,6 +3,7 @@
         <p class="title">i am first page</p>
         <p class="colorRed">color red</p>
         <img src="../../img/css2.png"/>
+        <img src="../../img/css1.png"/>>
     </div>
 </template>
 <style lang="less">
