@@ -1,6 +1,6 @@
 # webpack-vue-proj 
 
-#手动搭建基于webpack4.0+的vue2.0+开发环境
+# 手动搭建基于webpack4.0+的vue2.0+开发环境
 
 ## 什么是webpack？
 
