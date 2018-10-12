@@ -10,6 +10,7 @@ module.exports = {
     },
     output:{
         filename:'static/js/[name].js',
+        // chunkFilename: '[name].js',//指定分离的chuunks的名称 
         path:path.resolve('dist')
     },
     module:{
@@ -87,7 +88,7 @@ module.exports = {
             }
         }),
         new ExtractTextWebpackPlugin({
-            filename:'static/css/style.css',
+            filename:'static/css/[name].css',
             // Setting the following option to `false` will not extract CSS from codesplit chunks.
             // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
             // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 

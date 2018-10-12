@@ -5,6 +5,9 @@ import routerConfig from "./router"
 import store from './utils/store.js';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts 
 
 Vue.use(VueRouter)
 Vue.use(ElementUI)

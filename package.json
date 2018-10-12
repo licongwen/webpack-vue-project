@@ -34,6 +34,7 @@
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.8.0",
     "less-loader": "^4.1.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^1.0.1",
@@ -47,5 +48,8 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "echarts": "^4.2.0-rc.1"
   }
 }
