@@ -9,6 +9,9 @@
 </template>
 <script>
 import '../assets/index.css'
+// import axios from 'axios'
+import { Message } from 'element-ui'
+import _ from 'lodash'
 export default {
     name:'ImagePage',
     data(){
@@ -25,11 +28,21 @@ export default {
     },
     created(){
         this.initData();
+        let other = _.concat([0], 2, [3], [[4]]);
+        console.log(other);
         this.userName = this.$store.state.userName;
         console.log(this.userName);
+        Message({
+            message: '修改成功',
+            type: 'success',
+            duration: 3 * 1000
+        })
     },
     mounted(){
         this.drawLine();
+    },
+    created(){
+        console.log('xiugaihoude')
     },
     methods:{
         // 绘制echarts
@@ -69,6 +82,7 @@ export default {
 }
 .title{
     color: red;
+    display: flex;
 }
 </style>
 

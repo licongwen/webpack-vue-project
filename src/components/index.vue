@@ -18,10 +18,23 @@
 <script>
 import '../assets/index.css';
 // import '../assets/index.less';
+// import axios from 'axios'
+import { Message } from 'element-ui'
+import _ from 'lodash'
 export default {
     name:'FirstPage',
     mounted(){
         this.drawLine();
+    },
+    created(){
+
+        let other = _.concat([0], 2, [3], [[4]]);
+        console.log(other);
+        Message({
+            message: '修改成功',
+            type: 'success',
+            duration: 3 * 1000
+        })
     },
     methods:{
         drawLine(){
@@ -41,6 +54,13 @@ export default {
                     data: [5, 20, 36, 10, 10, 20]
                 }]
             });
+        },
+        getData(){
+            axios({
+                url:'',
+                method:'post',
+                params:{}
+            })
         }
     }
 }

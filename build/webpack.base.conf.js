@@ -10,7 +10,7 @@ module.exports = {
     },
     output:{
         filename:'static/js/[name].js',
-        // chunkFilename: '[name].js',//指定分离的chuunks的名称 
+        // chunkFilename: '[name].js',//它决定非入口 chunk 的名称
         path:path.resolve('dist')
     },
     module:{
@@ -35,14 +35,14 @@ module.exports = {
             {
                 test:/\.css$/,
                 use:ExtractTextWebpackPlugin.extract({
-                    use:['css-loader?minimize'],//这种方式引入css文件就不需要style-loader了
+                    use:['css-loader?minimize','postcss-loader'],//这种方式引入css文件就不需要style-loader了
                 })
                 //use:['style-loader','css-loader']//从右往左解析
             },
             {
                 test:/\.less$/,
                 use:ExtractTextWebpackPlugin.extract({
-                    use:['css-loader?minimize','less-loader'],
+                    use:['css-loader?minimize','less-loader','postcss-loader'],
                 })
                 //use:['style-loader','css-loader','less-loader'],//
             },
