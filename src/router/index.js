@@ -12,6 +12,10 @@ export default{
         {
             path:'/imagepage',
             component:resolved=>require(['../components/image.vue'],resolved)
+        },
+        {
+            path:'/test',
+            component:resolved=>require(['../components/test.vue'],resolved)
         }
     ]
 }

@@ -30,8 +30,24 @@ const prod={
         //     name: 'runtime-chunk'
         // },
         // minimize:true,//v4.0+的混淆配置
+        runtimeChunk: 'single',
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    mangle: {
+                        safari10: true
+                    }
+                },
+                sourceMap: false,
+                cache: true,
+                parallel: true
+            }),
+            // Compress extracted CSS. We are using this plugin so that possible
+            // duplicated CSS from different components can be deduped.
+            new OptimizeCSSAssetsPlugin()
+        ],
         splitChunks: {
-            // minSize:30000,
+            minSize:30000,
             chunks:'all',
             cacheGroups: {
                 // 创建vendors chunk，打包所有从node_modules来的依赖
@@ -65,22 +81,6 @@ const prod={
                 // },
             },
         },
-        runtimeChunk: 'single',
-        minimizer: [
-        new UglifyJsPlugin({
-            uglifyOptions: {
-                mangle: {
-                    safari10: true
-                }
-            },
-            sourceMap: false,
-            cache: true,
-            parallel: true
-        }),
-        // Compress extracted CSS. We are using this plugin so that possible
-        // duplicated CSS from different components can be deduped.
-        new OptimizeCSSAssetsPlugin()
-        ]
     },
     plugins: [
         // 打包前先清空

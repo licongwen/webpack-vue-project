@@ -2,6 +2,7 @@
     <div id="main">
         <router-link to="/firstpage">按钮</router-link>
         <router-link to="/imagepage">图片</router-link>
+        <router-link to="/test">测试1</router-link>
         <router-view></router-view>
     </div>
 </template>

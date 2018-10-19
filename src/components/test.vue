@@ -1,51 +1,42 @@
 <template>
-    <div>
-        <p class="title">image here;</p>
-        <el-input class="elinput" v-model="token"/>
-        <el-button type='primary' @click="clickHere">按钮</el-button>
-        <el-button type="success"> 按钮2</el-button>
+    <div id="test">
+        <p class="title">test page</p>
+        <p class="colorRed">color red</p>
+        <el-button>按钮</el-button>
         <div id="myChart" :style="{width: '300px', height: '300px'}"></div>
+        <img src="../../img/css2.png"/>
     </div>
 </template>
+<style lang="less">
+#test{
+    .colorRed{
+        color: red;
+        font-size: 16px;
+    }
+}
+</style>
 <script>
-import '../assets/index.css'
+import '../assets/index.css';
+// import '../assets/index.less';
 // import axios from 'axios'
 import { Message } from 'element-ui'
 import _ from 'lodash'
 export default {
-    name:'ImagePage',
-    data(){
-        return {
-            token:'123456token',
-            userName:'',
-        }
-    },
-    watch:{
-        'token':function(val,oldVal){
-            console.log('current value: '+val);
-            console.log('origin value: ' +oldVal);
-        }
+    name:'FirstPage',
+    mounted(){
+        this.drawLine();
     },
     created(){
-        this.initData();
+
         let other = _.concat([0], 2, [3], [[4]]);
         console.log(other);
-        this.userName = this.$store.state.userName;
-        console.log(this.userName);
         Message({
             message: '修改成功',
             type: 'success',
             duration: 3 * 1000
         })
     },
-    mounted(){
-        this.drawLine();
-    },
-    created(){
-        console.log('xiugaihoudeb')
-    },
     methods:{
-        // 绘制echarts
         drawLine(){
             // 基于准备好的dom，初始化echarts实例
             let myChart = this.$echarts.init(document.getElementById('myChart'))
@@ -64,26 +55,17 @@ export default {
                 }]
             });
         },
-        initData(){
-            let arr = 12;
-            const str = 'xiaodebaoasdd';
-            console.log(str);
-        },
-        clickHere(){
-            alert('clicked!');
+        getData(){
+            axios({
+                url:'',
+                method:'post',
+                params:{}
+            })
         }
     }
 }
 </script>
-<style>
-.elinput{
-    width: 200px;
-    color: red;
-}
-.title{
-    color: red;
-    display: flex;
-}
-</style>
+
+
 
 
