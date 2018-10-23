@@ -56,7 +56,9 @@ module.exports = {
 
 ![目录结构](img/constructor.jpg)
 
-我们需要在webpack.config.js中配置可处理.vue后缀的文件
+webpack只能处理JS的文件，对于不同的文件类型，需要我们安装不同的loader进行处理。
+
+我们先在webpack.config.js中配置可处理.vue后缀的文件
 
 ```js
 const path = require('path');
