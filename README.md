@@ -56,8 +56,6 @@ module.exports = {
 
 ![目录结构](img/constructor.jpg)
 
-webpack只能处理JS的文件，对于不同的文件类型，需要我们安装不同的loader进行处理。
-
 我们先在webpack.config.js中配置可处理.vue后缀的文件
 
 ```js
@@ -148,10 +146,12 @@ module.exports = merge(baseConf,prod);
 
 ## Loader
 
-由于webpack自身只能了解js文件，所以webpack需要loader去处理比如.vue,.css.png格式的文件。loader可以讲所有类型的文件转换为webpack能够处理的有效模块。
+**由于webpack自身只能处理JS文件**，所以webpack需要loader去处理比如.vue,.css,.png格式的文件。loader可以讲所有类型的文件转换为webpack能够处理的有效模块。
+
 loader有两个重要的目标：
 
 1. test属性:用于标识出应该被对应loader进行转换的某个或某些文件；
+
 2. use属性:用于标识再进行转换时，应该使用什么loader。
 
 比如之前我们用于处理.vue文件的loader：vue-loader
