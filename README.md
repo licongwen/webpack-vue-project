@@ -28,7 +28,7 @@ module.exports = {
 
 ```js
 //webpack.config.js
-conts path = require('path');//node自带处理文件路径模块
+const path = require('path');//node自带处理文件路径模块
 
 module.exports = {
     entry:'./src/main.js',//入口文件，webpack会从这个文件来分析项目依赖
@@ -129,12 +129,12 @@ module.exports = merge(baseConf,dev);
 主要为生产环境配置了压缩混淆的插件
 
 ```js
-//webpack.prod.confi.js
+//webpack.prod.config.js
 const merge = require('webpack-merge');
 const baseConf = require('./webpack.base.conf');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');//混淆压缩
-const prod={
-    opimization:{
+const prod = {
+    optimization:{
         minimizer:[
             new UglifyJsPlugin()
         ]
@@ -248,7 +248,7 @@ plugins:[
 然而对于.vue 文件，光是这样设置是不能提取css文件的，还需要如下的设置,在处理.vue的文件中设置提取css,less的插件:
 
 ```js
-// ./build/webpack.base.confi.js
+// ./build/webpack.base.config.js
  module:{
         rules:[
             {
@@ -364,7 +364,7 @@ entry: {
 
 当打包出来的代码文件过大时，会影响我们的加载速速，这个时候就需要我们将过大的代码进行分割。
 
-### Pluging
+### Plugins
 
 
 
